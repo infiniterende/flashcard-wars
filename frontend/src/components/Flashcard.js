@@ -81,15 +81,16 @@ border: 5px solid rgba(0,0,0,0.6);
 font-size: 20px;
 `
 
-const Flashcard = ({}) => {
+const Flashcard = ({question, answer}) => {
+  
     const [showAnswer, setShowAnswer] = useState(false);
     return (
-        <Container>
+        <div>
         <Navbar />
         <FlashcardContainer>
         <ArrowButton><FontAwesomeIcon icon={faArrowLeft} size="lg"/></ArrowButton>
-        {!showAnswer && <FlashcardDiv>What is a graph?</FlashcardDiv>}
-        {showAnswer && <FlashcardBack>A data structure that shows the relationships between different entities in a network.</FlashcardBack> }
+        {!showAnswer && <FlashcardDiv>{question}</FlashcardDiv>}
+        {showAnswer && <FlashcardBack>{answer}</FlashcardBack> }
         <ArrowButton><FontAwesomeIcon icon={faArrowRight} size="lg"/></ArrowButton>
         </FlashcardContainer>
        <AnswerContainer>
@@ -98,6 +99,8 @@ const Flashcard = ({}) => {
         
         <Answer></Answer>
         </AnswerContainer>
-        </Container>
+        </div>
     )
 }
+
+export default Flashcard
