@@ -49,14 +49,17 @@ const ArrowButton = styled.button`
     border-radius: 50%;
     border: 1px solid black;
     padding: 10px;
+    width: 50px;
+    height: 50px;
     background-color: rgba(0,0,0,0.8);
     color: white;
+    margin: 10px;
 `
 
 const ButtonDiv = styled.button`
     border-radius: 10px;
     color: white;
-    background-color: rgba(0,0,0,0.8);
+    background-color: #24a0ed;
     padding: 10px;
     display:flex;
     margin-right: 10px;

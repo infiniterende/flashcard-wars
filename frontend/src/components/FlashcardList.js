@@ -35,6 +35,23 @@ const Title = styled.div`
     font-size: 40px;
     padding: 40px;
 `
+
+const ButtonDiv = styled.button`
+    border-radius: 10px;
+    color: white;
+    background-color: #24a0ed;
+    padding: 10px;
+    display:flex;
+    margin-right: 10px;
+    outline: none;
+    border: none;
+`
+
+const Container = styled.div`
+    display:flex;
+    justify-content:center;
+`
+
 const FlashcardList = () => {
     const [flashcards, setFlashcards] = useState([])
     const {id} = useParams()
@@ -49,7 +66,7 @@ const FlashcardList = () => {
 
     useEffect(() => {
         fetchFlashcards(id)
-        updateDisplayedCard()
+        
     }, [id])
 
     const fetchFlashcards  = async (id) => {
@@ -67,6 +84,9 @@ const FlashcardList = () => {
         console.log(displayedCard)
         setCardIndex(0)
     }
+    useEffect(() => {
+        updateDisplayedCard()
+    })
     useEffect(() => {
         changeDisplayedCard(cardIndex)
     }, [cardIndex])
@@ -96,9 +116,9 @@ const FlashcardList = () => {
         <div>
         <Navbar/>
         <Title>Flashcards</Title>
-        <Button variant="primary" onClick={handleShowModal}>
+        <Container><ButtonDiv onClick={handleShowModal}>
         Create Flashcard
-      </Button>
+      </ButtonDiv></Container>
       {showCreateModal && (
         <AddFlashcard
           show={showCreateModal}
@@ -106,7 +126,7 @@ const FlashcardList = () => {
           closeHandler={handleCloseModal}
         />
       )}
-        <Flashcard decrement={decrementCardIndex} increment={incrementCardIndex} {...displayedCard}/>
+     <Flashcard decrement={decrementCardIndex} increment={incrementCardIndex} {...displayedCard} />
        </div>
     )
 }

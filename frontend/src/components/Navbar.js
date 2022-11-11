@@ -19,13 +19,13 @@ const Button = styled.button`
 `
 
 const Nav = styled.nav`
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.6);
     background-attachment: fixed;
     background-position: auto, center top;
     display:flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 10%;
+    padding: 20px 10%;
     font-size: 20px;
     top: 0;
     z-index: 999;
@@ -56,13 +56,14 @@ const MenuItem = styled.li`
     color: white;
 `
 
-const Title = styled.li`
+const Title = styled.div`
     font-weight: bold;
     font-size: 20px;
     font-family: Helvetica Neue;
     list-style:none;
     align-items: flex-start;
     padding-right: 200px;
+    padding-top: 10px;
     height: 80px;
 `
 
@@ -74,7 +75,7 @@ const Navbar = () => {
        <Link style={{ textDecoration: 'none', color: 'white' }} to="/login" ><MenuItem>Log In</MenuItem></Link>
        <Link style={{ textDecoration: 'none', color: 'white' }} to="/profile"><MenuItem>Profile</MenuItem></Link>
         <Link style={{ textDecoration: 'none', color: 'white' }} to="/decks" ><MenuItem>Decks</MenuItem></Link>
-       <Link style={{ textDecoration: 'none', color: 'white' }} to="compete"><MenuItem><Button>Compete  <FontAwesomeIcon icon={faAward}/></Button></MenuItem></Link>
+       <Link style={{ textDecoration: 'none', color: 'white' }} to="/compete"><MenuItem>Compete  </MenuItem></Link>
         
     </Menu>
 </Nav>)
