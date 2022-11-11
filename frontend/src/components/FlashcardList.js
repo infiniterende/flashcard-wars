@@ -55,29 +55,32 @@ const Container = styled.div`
 const FlashcardList = () => {
     const [flashcards, setFlashcards] = useState([])
     const {id} = useParams()
+    const [loading, setLoading] = useState(false)
 
     const[showCreateModal, setShowCreateModal] = useState(false)
     const [displayedCard, setDisplayedCard] = useState()
     const [cardIndex, setCardIndex] = useState(0)
-
+    const [deck, setDeck] = useState()
     const handleCloseModal = () => setShowCreateModal(false)
     const handleShowModal = () => setShowCreateModal(true)
 
 
     useEffect(() => {
         fetchFlashcards(id)
-        
     }, [id])
 
     const fetchFlashcards  = async (id) => {
         try {
             const response = await getDeck(id);
             console.log(response)
-            setFlashcards(response)
+            setFlashcards(response.flashcards)
+            setDeck(response.deck[0])
+            setLoading(!loading)
         } catch(error) {
             console.log(error)
         }
     }
+
 
     const updateDisplayedCard = async () => {
         setDisplayedCard(flashcards[0])
@@ -115,7 +118,7 @@ const FlashcardList = () => {
     return (
         <div>
         <Navbar/>
-        <Title>Flashcards</Title>
+        <Title>{loading && deck.name}</Title>
         <Container><ButtonDiv onClick={handleShowModal}>
         Create Flashcard
       </ButtonDiv></Container>

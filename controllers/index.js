@@ -131,13 +131,15 @@ const getUserDecks = async (req, res) => {
   }
 }
 
+
 const getDeck = async (req, res) => {
   try {
     const legit = await userOfRequest(req)
     const { deckId } = req.params
     if (legit) {
       const flashcards = await Flashcard.find({ deck: deckId })
-      return res.status(200).json(flashcards)
+      const deck = await Deck.find({_id: deckId})
+      return res.status(200).json({flashcards, deck})
     }
   } catch (error) {
     return res.status(500).json({ error: error.message })
