@@ -67,15 +67,16 @@ const FlashcardList = () => {
 
     useEffect(() => {
         fetchFlashcards(id)
+        
     }, [id])
+
 
     const fetchFlashcards  = async (id) => {
         try {
             const response = await getDeck(id);
-            console.log(response)
             setFlashcards(response.flashcards)
             setDeck(response.deck[0])
-            setLoading(!loading)
+            setLoading(true)
         } catch(error) {
             console.log(error)
         }
@@ -84,12 +85,11 @@ const FlashcardList = () => {
 
     const updateDisplayedCard = async () => {
         setDisplayedCard(flashcards[0])
-        console.log(displayedCard)
         setCardIndex(0)
     }
     useEffect(() => {
         updateDisplayedCard()
-    })
+    }, [])
     useEffect(() => {
         changeDisplayedCard(cardIndex)
     }, [cardIndex])
