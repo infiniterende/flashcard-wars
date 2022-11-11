@@ -35,7 +35,7 @@ export const verifyuser = async () => {
 
 export const userProfile = async () => {
   try {
-    const response = await api.get(`/userprofile`);
+    const response = await api.get(`/profile`);
     return response.data;
   } catch (error) {
     throw error;

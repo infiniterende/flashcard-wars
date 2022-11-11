@@ -9,6 +9,7 @@ import Flashcard from './components/Flashcard';
 import FlashcardList from './components/FlashcardList';
 import Login from './components/Login';
 import Profile from './components/Profile';
+import Register from './components/Register';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -20,9 +21,10 @@ function App() {
     <Route exact path="/" element={<Home/>} />
     <Route exact path="/profile" element={<Profile/>} />
     <Route exact path="/login" element={<Login/>} />
+    <Route exact path="/signup" element={<Register/>} />
     <Route exact path="/leaderboard" element={<Leaderboard/>} />
     <Route exact path="/decks" element={<DeckList/>} />
-    <Route exact path="/decks/:id" element={<FlashcardList/>} />"
+    <Route exact path="/decks/:id" element={<FlashcardList/>} />
     </Routes>
     </Router>
   );

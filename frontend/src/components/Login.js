@@ -11,10 +11,12 @@ const Login = ({}) => {
     const [loggedIn, setLoggedIn] = useState(false)
     const [formData, setFormData] = useState({})
 
-    const submitLogin = async({name, value}) => {
+    const handleSubmit = async(e) => {
         try {
+            e.preventDefault()
             const response = await signin({
-                [name]: value 
+                username: formData.username,
+                password: formData.password
             })
             setLoggedIn(true)
             console.log(response)
@@ -23,13 +25,11 @@ const Login = ({}) => {
         }
     }
 
-    const handleChange = async ({name, value}) => {
-        setFormData({[name]: value})
+    const handleChange = async (e) => {
+        const {name, value} = e.target;
+        setFormData({...formData, [name]:value})
     }
 
-    const handleSubmit = async() => {
-
-    }
     let profile;
     loggedIn ? profile = <Navigate to="/profile" /> : 
     profile = (<div>
@@ -37,16 +37,16 @@ const Login = ({}) => {
         <Form onSubmit={handleSubmit} className="login">
             <Form.Group size="md">
             <Form.Label>Username</Form.Label>
-            <Form.Control type="text" placeholder="username" value={formData.username} 
+            <Form.Control type="text" placeholder="username" name="username" value={formData.username} 
             onChange={handleChange}></Form.Control>
             </Form.Group>
 
             <Form.Group size="md">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="password" value={formData.password} 
+            <Form.Control type="password" placeholder="password" name="password" value={formData.password} 
             onChange={handleChange}></Form.Control>
             </Form.Group>
-            <Button>Login</Button>
+            <Button type="submit">Login</Button>
             <p>Not a user? Register <Link path="/signup">here</Link></p>
         </Form>
 
