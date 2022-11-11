@@ -27,8 +27,8 @@ const Deck = ({id, name}) => {
 
     return (
         <div>
-        <Link style={{"textDecoration": "none"}} path={`/decks/${id}`}>{name}</Link>
-        
+        <Link style={{"textDecoration": "none"}} to={`/decks/${id}`}>{name}</Link>
+        {flashcards}
         </div>
     )
 }

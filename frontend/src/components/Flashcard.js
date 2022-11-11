@@ -6,12 +6,17 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { getDeck } from '../api/apiCalls';
 import Navbar from './Navbar';
 
+import { Form, Modal, Button } from "react-bootstrap"
+import { updateUserPoints } from "../api/apiCalls"
+import { getFlashcard } from "../api/apiCalls"
+import checkSimilarity from "../utils/checkStringSimilarity"
+
 const FlashcardDiv = styled.div`
     display: flex;
     margin: 10% auto;
     justify-content:center;
     align-items:center;
-    width: 200px;
+    width: 400px;
     height: 50px;
     padding: 100px;
     background-color: white;
@@ -20,7 +25,7 @@ const FlashcardDiv = styled.div`
     font-size: 20px;
     position:relative;
 `
-const Answer = styled.input`
+const Answer = styled.div`
     padding: 100px;
     width: 200px;
     height: 50px;
@@ -48,7 +53,7 @@ const ArrowButton = styled.button`
     color: white;
 `
 
-const Button = styled.button`
+const ButtonDiv = styled.button`
     border-radius: 10px;
     color: white;
     background-color: rgba(0,0,0,0.8);
@@ -72,7 +77,7 @@ display: flex;
 margin: 10% auto;
 justify-content:center;
 align-items:center;
-width: 200px;
+width: 500px;
 height: 50px;
 padding: 100px;
 background-color: white;
@@ -81,23 +86,86 @@ border: 5px solid rgba(0,0,0,0.6);
 font-size: 20px;
 `
 
-const Flashcard = ({question, answer}) => {
+const Flashcard = ({
+    _id,
+    question,
+    answer,
+    increment,
+    decrement,
+  }) => {
   
-    const [showAnswer, setShowAnswer] = useState(false);
+    const [isAnswered, setIsAnswered] = useState(false)
+  const [userAnswer, setUserAnswer] = useState()
+  const [accuracy, setAccuracy] = useState()
+  const [showAnswerModal, setShowAnswerModal] = useState(false)
+//   const { _id } = useParams()
+  const [showAnswer, setShowAnswer] = useState(false)
+
+  const handleChange = (e) => {
+    const { value } = e.target
+    setUserAnswer(value)
+  }
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const accuracy = checkSimilarity(answer, userAnswer).toFixed(0)
+      console.log('acc', userAnswer)
+      setAccuracy(accuracy)
+      console.log(accuracy)
+      setIsAnswered(true)
+      setShowAnswerModal(true)
+      showScore(accuracy)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const closeHandler = () => {
+    setShowAnswerModal(!showAnswerModal)
+  }
+
+  const updatePoints = async () => {
+    try {
+      if (accuracy > 85) {
+        const response = await updateUserPoints(_id, {
+          points: accuracy,
+        })
+      }
+
+      closeHandler()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const showScore = (accuracy) => ({
+    if(isAnswered){
+        <Modal show={showAnswerModal} onHide={closeHandler}>
+          <Modal.Body>Score: {accuracy}%</Modal.Body>
+          <Button onClick={updatePoints}>Continue</Button>
+        </Modal>
+      
+    }
+  })
+    
+    
+
     return (
         <div>
-        <Navbar />
         <FlashcardContainer>
-        <ArrowButton><FontAwesomeIcon icon={faArrowLeft} size="lg"/></ArrowButton>
+        <Modal show={showAnswerModal} onHide={closeHandler}>
+          <Modal.Body>Score: {accuracy}%</Modal.Body>
+          <Button onClick={updatePoints}>Continue</Button>
+        </Modal>
+        <ArrowButton onClick={decrement}><FontAwesomeIcon icon={faArrowLeft} size="lg"/></ArrowButton>
         {!showAnswer && <FlashcardDiv>{question}</FlashcardDiv>}
         {showAnswer && <FlashcardBack>{answer}</FlashcardBack> }
-        <ArrowButton><FontAwesomeIcon icon={faArrowRight} size="lg"/></ArrowButton>
+        <ArrowButton onClick={increment}><FontAwesomeIcon icon={faArrowRight} size="lg"/></ArrowButton>
         </FlashcardContainer>
        <AnswerContainer>
-       <Button onClick={() => setShowAnswer(!showAnswer)}> {showAnswer ? "Hide Answer" : "Show Answer" }</Button>
-        <Button>Check Answer</Button>
+       <ButtonDiv onClick={() => setShowAnswer(!showAnswer)}> {showAnswer ? "Hide Answer" : "Show Answer" }</ButtonDiv>
+        <ButtonDiv onClick={handleSubmit}>Check Answer</ButtonDiv>
         
-        <Answer></Answer>
+        <textarea maxlength="200" type="text" value={userAnswer} onChange={handleChange}></textarea>
         </AnswerContainer>
         </div>
     )

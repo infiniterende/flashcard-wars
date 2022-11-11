@@ -105,7 +105,7 @@ const Profile = ({}) => {
            <UserInfo>Points:{profile.user.points}</UserInfo> 
            </ProfileInfoContainer>
            </TopContainer>
-           <DeckContainer>{profile.user.decks.map(deck => <DeckBox><Deck id={deck.id} name={deck.name}/></DeckBox>)}
+           <DeckContainer>{profile.user.decks.map(deck => <DeckBox><Deck id={deck._id} name={deck.name}/></DeckBox>)}
            </DeckContainer>
            </ProfileContainer>
         }
