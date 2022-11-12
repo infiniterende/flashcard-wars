@@ -61,6 +61,7 @@ const FlashcardList = () => {
     const [displayedCard, setDisplayedCard] = useState()
     const [cardIndex, setCardIndex] = useState(0)
     const [deck, setDeck] = useState()
+    const [isDeckLoading, setIsDeckLoading] = useState(false)
     const handleCloseModal = () => setShowCreateModal(false)
     const handleShowModal = () => setShowCreateModal(true)
 
@@ -83,13 +84,16 @@ const FlashcardList = () => {
     }
 
 
-    const updateDisplayedCard = async () => {
+    const updateDisplayedCard = async (flashcards) => {
         setDisplayedCard(flashcards[0])
         setCardIndex(0)
+        setIsDeckLoading(true)
     }
+
     useEffect(() => {
-        updateDisplayedCard()
-    }, [])
+        updateDisplayedCard(flashcards)
+    }, [flashcards])
+
     useEffect(() => {
         changeDisplayedCard(cardIndex)
     }, [cardIndex])
@@ -129,7 +133,7 @@ const FlashcardList = () => {
           closeHandler={handleCloseModal}
         />
       )}
-     <Flashcard decrement={decrementCardIndex} increment={incrementCardIndex} {...displayedCard} />
+     {isDeckLoading && <Flashcard decrement={decrementCardIndex} increment={incrementCardIndex} {...displayedCard} /> }
        </div>
     )
 }
