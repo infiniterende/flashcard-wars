@@ -6,11 +6,35 @@ import { Button, Form } from 'react-bootstrap';
 
 import Navbar from './Navbar'
 import Deck from './Deck'
+import AddDeck from './AddDeck';
 
 import {userProfile, verifyuser} from '../api/apiUsers';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+
+const ButtonContainer = styled.div`
+    display:flex;
+    justify-content:center;
+`
+const ButtonDiv = styled.button`
+    border-radius: 10px;
+    color: white;
+    background-color: teal;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 18px;
+    padding: 10px;
+    width: 200px;
+    height: 50px;
+    display:flex;
+    justify-content: center;
+    align-content: center;
+    margin-right: 10px;
+    outline: none;
+    border: none;
+`
 
 const ProfileContainer = styled.div`
     display:flex;
@@ -73,6 +97,8 @@ const DeckBox = styled.div`
 const Profile = ({}) => {
     const [profile, setProfile] = useState()
     const [id, setId] = useState()
+    const [showCreateModal, setShowCreateModal] = useState(false);
+
 
     useEffect(() => {
         fetchUserProfile()
@@ -90,6 +116,9 @@ const Profile = ({}) => {
     
     }
 
+    const handleCloseModal = () => setShowCreateModal(false)
+    const handleShowModal = () => setShowCreateModal(true)
+
     return (
         <div>
             <Navbar />
@@ -105,7 +134,20 @@ const Profile = ({}) => {
            <UserInfo>Points:{profile.user.points}</UserInfo> 
            </ProfileInfoContainer>
            </TopContainer>
-           <DeckContainer>{profile.user.decks.map(deck => <DeckBox><Deck id={deck._id} name={deck.name}/></DeckBox>)}
+           <ButtonContainer>
+           <ButtonDiv onClick={handleShowModal}>
+        Create Deck
+      </ButtonDiv>
+      {showCreateModal && (
+        <AddDeck
+          show={showCreateModal}
+          closeHandler={handleCloseModal}
+        />
+      )}
+      </ButtonContainer>
+           <DeckContainer>
+           
+            {profile.user.decks.map(deck => <DeckBox><Deck id={deck._id} name={deck.name}/></DeckBox>)}
            </DeckContainer>
            </ProfileContainer>
         }

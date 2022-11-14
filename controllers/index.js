@@ -247,10 +247,8 @@ const createDeck = async (req, res) => {
     if (legit) {
       const deckData = req.body
       deckData.creator = legit.id
-      const category = await Category.find({ name: deckData.category })
       const updatedDeckData = {
         name: deckData.name,
-        description: deckData.description,
         creator: legit.id,
       }
       const deck = await new Deck(updatedDeckData)

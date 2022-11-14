@@ -27,6 +27,15 @@ export const getFlashcards = async (deckId) => {
     }
 }
 
+export const createDeck = async (payload) => {
+    try {
+        const response = await api.post('/decks', payload)
+        return response.data
+    } catch(error) {
+        console.log(error)
+    }
+}
+
 export const getLeaderboard = async () => {
     try {
         const response = await api.get(`/leaderboard`);

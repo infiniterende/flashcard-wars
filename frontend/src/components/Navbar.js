@@ -75,6 +75,7 @@ const Navbar = () => {
        <Link style={{ textDecoration: 'none', color: 'white' }} to="/login" ><MenuItem>Log In</MenuItem></Link>
        <Link style={{ textDecoration: 'none', color: 'white' }} to="/profile"><MenuItem>Profile</MenuItem></Link>
         <Link style={{ textDecoration: 'none', color: 'white' }} to="/decks" ><MenuItem>Decks</MenuItem></Link>
+        <Link style={{ textDecoration: 'none', color: 'white' }} to="/leaderboard"><MenuItem>Leaderboard  </MenuItem></Link>
        <Link style={{ textDecoration: 'none', color: 'white' }} to="/compete"><MenuItem>Compete  </MenuItem></Link>
         
     </Menu>
