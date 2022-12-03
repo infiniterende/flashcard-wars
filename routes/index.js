@@ -11,7 +11,6 @@ router.post("/signin", (req, res) => controller.signIn(req, res))
 router.get("/verifyuser", (req, res) => controller.verifyUser(req, res))
 router.get("/profile", (req, res) => controller.userProfile(req, res))
 
-router.get("/decks/:deckId", (req, res) => controller.getDeck(req, res))
 
 router.get("/allDecks", (req, res) => controller.getAllDecks(req, res))
 router.get("/:userId/decks/", (req, res) => controller.getUserDecks(req, res)) //returns array of all decks

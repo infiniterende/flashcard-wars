@@ -41,7 +41,6 @@ const DeckList = () => {
 
     const fetchDecks  = async () => {
         const response = await getAllDecks();
-        console.log('respno', response)
         setDecks(response)
     }
     return (

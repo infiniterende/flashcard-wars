@@ -1,18 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
 
-.login {
+.signup {
   max-width: 100%;
   width: 500px;
   margin: 100px auto;
   padding: 50px 0;
 }
 
-.login button {
+.signup button {
   margin-top: 10px;
   width: 500px;
 }
 
-.login label {
+.signup label {
   margin: 15px 0;
 }

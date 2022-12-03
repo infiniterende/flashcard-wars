@@ -17,18 +17,24 @@ const Deck = ({id, name}) => {
     const [flashcards, setFlashcards] = useState([])
     
     useEffect(() => {
-       fetchFlashcards()
-    }, [])
+       fetchFlashcards(id)
+    }, [id])
     
     const fetchFlashcards = async (id) => {
-        const response = await getFlashcards(id);
-        setFlashcards(response)
+        try {
+            const response = await getFlashcards(id);
+            setFlashcards(prevState => [...prevState, response.flashcards])
+        } catch(error) {
+            console.log(error)
+        }
+        
+        
     }
 
     return (
         <div>
         <Link style={{"textDecoration": "none"}} to={`/decks/${id}`}>{name}</Link>
-        {flashcards}
+        
         </div>
     )
 }

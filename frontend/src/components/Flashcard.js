@@ -1,5 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import styled from 'styled-components';
+import { io } from 'socket.io-client';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
@@ -11,6 +13,7 @@ import { updateUserPoints } from "../api/apiCalls"
 import { getFlashcard } from "../api/apiCalls"
 import checkSimilarity from "../utils/checkStringSimilarity"
 
+import { verifyuser } from '../api/apiUsers';
 const FlashcardDiv = styled.div`
     display: flex;
     margin: 10% auto;
@@ -91,6 +94,7 @@ font-size: 20px;
 
 const Flashcard = ({
     _id,
+    user,
     question,
     answer,
     increment,
@@ -101,8 +105,34 @@ const Flashcard = ({
   const [userAnswer, setUserAnswer] = useState()
   const [accuracy, setAccuracy] = useState()
   const [showAnswerModal, setShowAnswerModal] = useState(false)
-//   const { _id } = useParams()
   const [showAnswer, setShowAnswer] = useState(false)
+const [winner, setWinner] = useState([])
+const [showWinnerModal, setShowWinnerModal] = useState(false)
+const [gameWinner, setGameWinner] = useState([])
+const [showGameWinner, setShowGameWinner] = useState(false)
+  const socket = useRef()
+
+  const setupSocket = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      socket.current = io("http://localhost:3001", {
+        query: {
+          token: localStorage.getItem("token"),
+        },
+      });
+
+      socket.current.on("connect", () => {
+        console.log('connect')
+      });
+      console.log(socket.current)
+      console.log("flashcard")
+    }
+  };
+
+  useEffect(() => {
+    setupSocket();
+  }, []);
+
 
   const handleChange = (e) => {
     const { value } = e.target
@@ -112,9 +142,7 @@ const Flashcard = ({
     e.preventDefault()
     try {
       const accuracy = checkSimilarity(answer, userAnswer).toFixed(0)
-      console.log('acc', userAnswer)
       setAccuracy(accuracy)
-      console.log(accuracy)
       setIsAnswered(true)
       setShowAnswerModal(true)
       showScore(accuracy)
@@ -127,24 +155,54 @@ const Flashcard = ({
     setShowAnswerModal(!showAnswerModal)
   }
 
-  const updatePoints = async () => {
-    try {
-      if (accuracy > 85) {
-        const response = await updateUserPoints(_id, {
-          points: accuracy,
-        })
-      }
-
-      closeHandler()
-    } catch (error) {
-      console.log(error)
-    }
+  const closeGame = () => {
+    setShowGameWinner(false)
   }
+
+  const getWinner = () => {
+      let cardScore = {"card": _id, "score": accuracy, "user": user.user}
+      socket.current.emit("get score", cardScore)
+      console.log('cardscore', cardScore)
+      console.log("get score")
+      console.log('socket', socket.current)
+      socket.current.on("get winner", (cardWinner) => {
+        setWinner({...cardWinner})
+        if(cardWinner) {
+          console.log("true")
+          setShowWinnerModal(true)
+  
+        }
+      })
+      
+    
+  }
+
+
+  const getGameWinner = () => {
+    console.log("game winer")
+    socket.current.on("game winner", (gameWinner) => {
+      console.log("socket game end")
+      setGameWinner([...gameWinner])
+      setShowGameWinner(true)
+    })
+  }
+  const updatePoints = async () => {
+
+
+    closeHandler()
+
+  }
+
+  const closeWinnerModal = () => {
+    setShowWinnerModal(false)
+  }
+  
+  
   const showScore = (accuracy) => ({
     if(isAnswered){
         <Modal show={showAnswerModal} onHide={closeHandler}>
           <Modal.Body>Score: {accuracy}%</Modal.Body>
-          <Button onClick={updatePoints}>Continue</Button>
+          <Button>Continue</Button>
         </Modal>
       
     }
@@ -159,6 +217,14 @@ const Flashcard = ({
           <Modal.Body>Score: {accuracy}%</Modal.Body>
           <Button onClick={updatePoints}>Continue</Button>
         </Modal>
+        <Modal show={showWinnerModal} onHide={closeWinnerModal}>
+          <Modal.Body> {winner.username} wins!</Modal.Body>
+          <Button onClick={closeWinnerModal}>Continue</Button>
+        </Modal>
+        <Modal show={showGameWinner} onHide={showGameWinner}>
+          <Modal.Body> {gameWinner[1]} wins with {gameWinner[0]} points!</Modal.Body>
+          <Button onClick={closeWinnerModal}>Continue</Button>
+        </Modal>
         <ArrowButton onClick={decrement}><FontAwesomeIcon icon={faArrowLeft} size="lg"/></ArrowButton>
         {!showAnswer && <FlashcardDiv>{question}</FlashcardDiv>}
         {showAnswer && <FlashcardBack>{answer}</FlashcardBack> }
@@ -167,7 +233,8 @@ const Flashcard = ({
        <AnswerContainer>
        <ButtonDiv onClick={() => setShowAnswer(!showAnswer)}> {showAnswer ? "Hide Answer" : "Show Answer" }</ButtonDiv>
         <ButtonDiv onClick={handleSubmit}>Check Answer</ButtonDiv>
-        
+        <ButtonDiv onClick={getWinner}>Get Winner</ButtonDiv>
+        <ButtonDiv onClick={getGameWinner}>End Game</ButtonDiv>
         <textarea maxlength="200" type="text" value={userAnswer} onChange={handleChange}></textarea>
         </AnswerContainer>
         </div>

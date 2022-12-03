@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
+import { io } from 'socket.io-client';
 import {useParams} from 'react-router-dom'
 import styled from 'styled-components';
 
@@ -7,7 +8,7 @@ import Flashcard from './Flashcard';
 import AddFlashcard from './AddFlashcard';
 
 import { getDeck } from "../api/apiCalls";
-
+import { verifyuser } from '../api/apiUsers';
 import { Button, Modal } from "react-bootstrap"
 
 const DeckContainer = styled.div`
@@ -64,7 +65,42 @@ const FlashcardList = () => {
     const [isDeckLoading, setIsDeckLoading] = useState(false)
     const handleCloseModal = () => setShowCreateModal(false)
     const handleShowModal = () => setShowCreateModal(true)
+    const socket = useRef()
+    const [user, setUser]= useState()
+    const setupSocket = () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        socket.current = io("http://localhost:3001", {
+          query: {
+            token: localStorage.getItem("token"),
+          },
+        });
+  
+        socket.current.on("connect", () => {
+          console.log('connect')
+        });
+        socket.current.emit("setup", user)
+        console.log('socket', socket.current)
+      }
+    };
 
+    const fetchUser = async () => {
+      try {
+        const response = await verifyuser();
+        setUser(response)
+        console.log(user)
+      } catch(error) {
+        console.log(error)
+      }
+    }
+  
+    useEffect(() => {
+      fetchUser()
+    }, [])
+    useEffect(() => {
+      setupSocket();
+    }, []);
+  
 
     useEffect(() => {
         fetchFlashcards(id)
@@ -133,7 +169,7 @@ const FlashcardList = () => {
           closeHandler={handleCloseModal}
         />
       )}
-     {isDeckLoading && <Flashcard decrement={decrementCardIndex} increment={incrementCardIndex} {...displayedCard} /> }
+     {isDeckLoading && <Flashcard user={user} decrement={decrementCardIndex} increment={incrementCardIndex} {...displayedCard} /> }
        </div>
     )
 }

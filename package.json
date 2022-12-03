@@ -8,6 +8,8 @@
     "mongoose": "^6.5.2",
     "mongoose-seed": "^0.6.0",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.19"
+    "node-polyfill-webpack-plugin": "^2.0.1",
+    "nodemon": "^2.0.19",
+    "socket.io": "^4.4.0"
   }
 }

@@ -20,7 +20,7 @@ export const getDeck = async (deckId) => {
 
 export const getFlashcards = async (deckId) => {
     try {
-        const response = await api.get(`/cards/${deckId}`);
+        const response = await api.get(`/decks/${deckId}`);
         return response.data 
     } catch(error) {
         throw error;
