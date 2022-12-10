@@ -1,6 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import styled from 'styled-components';
 
+import { Chart as ChartJS } from 'chart.js/auto'
+import { Chart }            from 'react-chartjs-2'
+
+import {Line} from 'react-chartjs-2'
 import {Navigate} from 'react-router-dom'
 // import { Button, Form } from 'react-bootstrap';
 
@@ -38,6 +42,12 @@ import ListItemText from '@mui/material/ListItemText';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
+const data = {labels: ['Aug', 'Sept', 'Oct', 'Nov'],
+    datasets: [
+        {id: 1, label:"Flashcards memorized", data:[10,14,12,16], fill: true,
+        backgroundColor: "rgba(75,192,192,0.2)",
+        borderColor: "rgba(75,192,192,1)"
+    }]}
 const drawerWidth = 300;
 
 const theme = createTheme();
@@ -46,7 +56,7 @@ const ButtonContainer = styled.div`
     display:flex;
     justify-content:center;
     margin-top: 10px;
-    margin-bottom: 60px;
+    margin-bottom: 70px;
     
 `
 const ButtonDiv = styled.button`
@@ -143,7 +153,7 @@ const Profile = ({}) => {
            <Container component="main" maxWidth="xl">
              <CssBaseline />
         
-             <Box sx={{marginTop: 5, display:'flex', flexDirection:'column', justifyContent: 'center', alignItems:'center'}}>
+             <Box sx={{marginTop: 8, display:'flex', flexDirection:'column', justifyContent: 'center', alignItems:'center'}}>
              <Avatar sx={{width: 130, height: 130, bgcolor:'#7390FB', fontSize: '4em'}}>{profile.user.name[0]}</Avatar>
              <Box sx={{display:'flex', flexDirection:'column', alignItems: 'center'}}>
                 <Typography sx={{ fontWeight: 600, marginTop: 2, display:'flex', justifyContent:'center'}}component='h5' variant='h4'>
@@ -176,10 +186,16 @@ const Profile = ({}) => {
         />
       )}
       </ButtonContainer>
+      <Divider><Typography  variant="p" component="p">My Decks</Typography></Divider>
            <DeckContainer>
            
             {profile.user.decks.map(deck => <DeckBox><Deck id={deck._id} name={deck.name}/></DeckBox>)}
            </DeckContainer>
+
+      <Divider>My Progress</Divider>     
+      <Box sx={{width:'50%'}}>
+      <Line datasetIdKey='id' data={data}/>
+      </Box>
            </Container>
            </ThemeProvider>
         }

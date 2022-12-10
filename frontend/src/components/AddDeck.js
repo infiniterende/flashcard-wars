@@ -63,7 +63,7 @@ const AddDeck= ({ show, closeHandler }) => {
           ></Form.Control>
         </Form.Group> */}
           <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="lg">
+      <Container component="main" maxWidth="xl">
         <CssBaseline />
         <Box
           sx={{
@@ -77,7 +77,7 @@ const AddDeck= ({ show, closeHandler }) => {
           <Typography component="h1" variant="h5">
             Add Deck
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box sx={{width: '100%'}} component="form" fullWidth onSubmit={handleSubmit} noValidate>
             <TextField
               margin="normal"
               required
@@ -85,6 +85,7 @@ const AddDeck= ({ show, closeHandler }) => {
               id="email"
               label="Deck Name"
               name="name"
+              size="small"
               autoFocus
               onChange={handleChange}
             />
@@ -99,7 +100,7 @@ const AddDeck= ({ show, closeHandler }) => {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3 }}
+              sx={{ mt: 3, p:1 }}
               style={{backgroundColor:"#7390FB"}}
               onClick={handleSubmit}
             >
@@ -107,7 +108,7 @@ const AddDeck= ({ show, closeHandler }) => {
             </Button>
       <Button 
               variant="contained"
-              
+              sx={{p:1}}
               style={{backgroundColor:"#455964"}} onClick={closeHandler}>
         Close
       </Button>

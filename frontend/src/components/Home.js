@@ -159,7 +159,7 @@ const Home = () => {
            <Text><Heading>Make memorizing fun</Heading>
            <Subtext><p>...through competing with friends</p>
            <p>...using speech to text translation</p>
-           <p>...get rewards and rank on the leaderboard</p></Subtext></Text>
+           <p>...winning rewards and ranking on leaderboard</p></Subtext></Text>
             
         </div>
     )
