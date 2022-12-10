@@ -3,8 +3,9 @@ import {Navigate} from 'react-router-dom'
 
 import Navbar from './Navbar'
 
-import {signup} from '../api/apiUsers';
+import {signin} from '../api/apiUsers';
 
+// import { Button, Form } from 'react-bootstrap';
 
 import * as Mui from '@mui/material';
 import Avatar from '@mui/material/Avatar';
@@ -21,30 +22,35 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 const theme = createTheme();
 
-const Register = ({}) => {
+const Signin = () => {
     const [loggedIn, setLoggedIn] = useState(false)
     const [formData, setFormData] = useState({})
 
-    const handleSubmit = async({name, value}) => {
+    const handleSubmit = async(e) => {
         try {
-            const response = await signup({
-                [name]: value 
+            e.preventDefault()
+            const response = await signin({
+                username: formData.username,
+                password: formData.password
             })
+            setLoggedIn(true)
             console.log(response)
         } catch(error) {
             console.log(error)
         }
     }
 
-    const handleChange = async ({name, value}) => {
-        setFormData({[name]: value})
+    const handleChange = async (e) => {
+        const {name, value} = e.target;
+        console.log(value)
+        setFormData({...formData, [name]:value})
     }
 
-    
-    return (
-        <div>
-            <Navbar />
-            <ThemeProvider theme={theme}>
+    let profile;
+    loggedIn ? profile = <Navigate to="/profile" /> : 
+    profile = (<div>
+        <Navbar />
+        <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -57,26 +63,16 @@ const Register = ({}) => {
         >
          
           <Typography component="h1" variant="h5">
-            Sign Up
+            Sign In
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
               fullWidth
-              id="username"
+              id="email"
               label="Username"
               name="username"
-              autoFocus
-              onChange={handleChange}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="name"
-              label="Name"
-              name="name"
               autoFocus
               onChange={handleChange}
             />
@@ -101,16 +97,28 @@ const Register = ({}) => {
               sx={{ mt: 3, mb: 2 }}
               style={{backgroundColor:"#7390FB"}}
             >
-              Sign Up
+              Sign In
             </Button>
-            
+            <Grid container>
+              <Grid item>
+                <Link href="/signup" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
+            </Grid>
           </Box>
         </Box>
       </Container>
     </ThemeProvider>
-        </div>
-        
+
+    </div>
+
+    
+)
+    return (
+        profile
     )
+        
 }
 
-export default Register
+export default Signin

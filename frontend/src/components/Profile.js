@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import styled from 'styled-components';
 
-import {Navigate, Link} from 'react-router-dom'
-import { Button, Form } from 'react-bootstrap';
+import {Navigate} from 'react-router-dom'
+// import { Button, Form } from 'react-bootstrap';
 
 import Navbar from './Navbar'
 import Deck from './Deck'
@@ -13,6 +13,22 @@ import {userProfile, verifyuser} from '../api/apiUsers';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
+import * as Mui from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme();
+
 const ButtonContainer = styled.div`
     display:flex;
     justify-content:center;
@@ -20,17 +36,18 @@ const ButtonContainer = styled.div`
 const ButtonDiv = styled.button`
     border-radius: 10px;
     color: white;
-    background-color: teal;
+    background-color: #455964;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-size: 18px;
-    padding: 10px;
-    width: 200px;
+    padding: 50px;
+    width: 250px;
     height: 50px;
     display:flex;
     justify-content: center;
     align-content: center;
+    align-items:center;
     margin-right: 10px;
     outline: none;
     border: none;
@@ -83,9 +100,8 @@ const DeckBox = styled.div`
     flex-basis: 25%;
     width: 200px;
     height: 150px;
-    background-color: lightblue;
+    background-color: #455964;
     border-radius: 10px;
-    box-shadow: 10px 5px 5px;
     justify-content: center;
     display: flex;
     font-weight: 600;
@@ -123,17 +139,36 @@ const Profile = ({}) => {
         <div>
             <Navbar />
            {profile && 
-           <ProfileContainer>
-            <TopContainer>
-             <ProfileImg><FontAwesomeIcon icon={faUser} size="2xl"/></ProfileImg>
-             <ProfileInfoContainer>
+           <ThemeProvider theme={theme}>
+           <Container component="main" maxWidth="xl">
+             <CssBaseline />
+        
+             <Box sx={{marginTop: 2, display:'flex', flexDirection:'row', justifyContent: 'space-around'}}>
+             <Avatar sx={{width: 100, height: 100, bgcolor:'#7390FB', fontSize: '3em'}}>{profile.user.name[0]}</Avatar>
+             <Box sx={{display:'flex', flexDirection:'column'}}>
+                <Typography component='h4'>
+                    {profile.user.name}
+                </Typography>
+                <Typography component='p'>
+                    {profile.user.username}
+                </Typography>
+                <Typography component='p'>
+                    {profile.user.rank}
+                </Typography>
+                <Typography component='p'>
+                    {profile.user.points}
+                </Typography>
+             </Box>
+             
+             </Box>
+             
+             {/* <ProfileInfoContainer>
             <NameBox>{profile.user.name}</NameBox> 
             <UserInfo>{profile.user.username}</UserInfo>
             
            <UserInfo>Rank: {profile.user.rank} </UserInfo>
            <UserInfo>Points:{profile.user.points}</UserInfo> 
-           </ProfileInfoContainer>
-           </TopContainer>
+           </ProfileInfoContainer> */}
            <ButtonContainer>
            <ButtonDiv onClick={handleShowModal}>
         Create Deck
@@ -149,7 +184,8 @@ const Profile = ({}) => {
            
             {profile.user.decks.map(deck => <DeckBox><Deck id={deck._id} name={deck.name}/></DeckBox>)}
            </DeckContainer>
-           </ProfileContainer>
+           </Container>
+           </ThemeProvider>
         }
         </div>
         

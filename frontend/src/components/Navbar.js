@@ -19,7 +19,6 @@ const Button = styled.button`
 `
 
 const Nav = styled.nav`
-    background-color: rgba(0,0,0,0.6);
     background-attachment: fixed;
     background-position: auto, center top;
     display:flex;
@@ -28,9 +27,10 @@ const Nav = styled.nav`
     padding: 20px 10%;
     font-size: 20px;
     top: 0;
-    z-index: 999;
-    height: 50px;
+    z-index: 1;
+    height: 70px;
     position: relative;
+    background-color:  #7390FB;
 `
 
 
@@ -42,6 +42,7 @@ const Menu = styled.ul`
     align-items: center;
     text-align: center;
     text-decoration: none;
+    margin-left: 150px;
 `
 
 const MenuItem = styled.li`
@@ -57,26 +58,34 @@ const MenuItem = styled.li`
 `
 
 const Title = styled.div`
+    margin-left: 20px;
+    margin-top: 40px;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 30px;
     font-family: Helvetica Neue;
     list-style:none;
     align-items: flex-start;
     padding-right: 200px;
-    padding-top: 10px;
     height: 80px;
+`
+
+const Top = styled.div`
+    
+    
 `
 
 const Navbar = () => {
     return (
     <Nav>
+        <Top>
+        <Link style={{ textDecoration: 'none', color: 'white' }} to="/"><Title>flashwars</Title></Link>
+        </Top>
     <Menu>
-        <Title>flash_wars</Title>
-       <Link style={{ textDecoration: 'none', color: 'white' }} to="/login" ><MenuItem>Log In</MenuItem></Link>
-       <Link style={{ textDecoration: 'none', color: 'white' }} to="/profile"><MenuItem>Profile</MenuItem></Link>
-        <Link style={{ textDecoration: 'none', color: 'white' }} to="/decks" ><MenuItem>Decks</MenuItem></Link>
-        <Link style={{ textDecoration: 'none', color: 'white' }} to="/leaderboard"><MenuItem>Leaderboard  </MenuItem></Link>
-       <Link style={{ textDecoration: 'none', color: 'white' }} to="/compete"><MenuItem>Compete  </MenuItem></Link>
+       <Link style={{ textDecoration: 'none', color: '#E64420' }} to="/login" ><MenuItem>Log In</MenuItem></Link>
+       {/* <Link style={{ textDecoration: 'none', color: '#E64420' }} to="/profile"><MenuItem>Profile</MenuItem></Link> */}
+        <Link style={{ textDecoration: 'none', color: '#E64420' }} to="/decks" ><MenuItem>Decks</MenuItem></Link>
+        <Link style={{ textDecoration: 'none', color: '#E64420' }} to="/leaderboard"><MenuItem>Leaderboard  </MenuItem></Link>
+       <Link style={{ textDecoration: 'none', color: '#E64420' }} to="/compete"><MenuItem>Compete  </MenuItem></Link>
         
     </Menu>
 </Nav>)

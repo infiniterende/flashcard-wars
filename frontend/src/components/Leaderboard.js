@@ -14,7 +14,6 @@ const User = styled.div`
     width: 200px;
     border-radius: 10px;
     font-weight: 600;
-    box-shadow: 5px 5px 5px black;
 `
 
 const Leaderboard = () => {

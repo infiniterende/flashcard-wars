@@ -16,9 +16,8 @@ const DeckBox = styled.div`
     flex-basis: 25%;
     width: 200px;
     height: 150px;
-    background-color: lightblue;
+    background-color: #455964;
     border-radius: 10px;
-    box-shadow: 10px 5px 5px;
     justify-content: center;
     display: flex;
     font-weight: 600;

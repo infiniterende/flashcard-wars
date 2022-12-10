@@ -33,7 +33,7 @@ const Deck = ({id, name}) => {
 
     return (
         <div>
-        <Link style={{"textDecoration": "none"}} to={`/decks/${id}`}>{name}</Link>
+        <Link style={{"textDecoration": "none", "color": "white"}} to={`/decks/${id}`}>{name}</Link>
         
         </div>
     )

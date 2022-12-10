@@ -8,7 +8,7 @@ import DeckList from './components/DeckList';
 import Leaderboard from './components/Leaderboard';
 import Flashcard from './components/Flashcard';
 import FlashcardList from './components/FlashcardList';
-import Signup from './components/Signup';
+import Signin from './components/Signin';
 import Profile from './components/Profile';
 import Register from './components/Register';
 import Game from './components/Game';
@@ -25,7 +25,7 @@ function App() {
     <Routes>
     <Route exact path="/" element={<Home/>} />
     <Route exact path="/profile" element={<Profile/>} />
-    <Route exact path="/login" element={<Signup/>} />
+    <Route exact path="/login" element={<Signin/>} />
     <Route exact path="/signup" element={<Register/>} />
     <Route exact path="/leaderboard" element={<Leaderboard/>} />
     <Route exact path="/decks" element={<DeckList/>} />

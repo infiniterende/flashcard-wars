@@ -17,12 +17,12 @@ const DeckContainer = styled.div`
     justify-content: center;
 `
 const DeckBox = styled.div`
+color: white;
     flex-basis: 25%;
     width: 200px;
     height: 150px;
-    background-color: lightblue;
+    background-color: #455964;
     border-radius: 10px;
-    box-shadow: 10px 5px 5px;
     justify-content: center;
     display: flex;
     font-weight: 600;
@@ -40,7 +40,7 @@ const Title = styled.div`
 const ButtonDiv = styled.button`
     border-radius: 10px;
     color: white;
-    background-color: #24a0ed;
+    background-color:#7390FB;
     padding: 10px;
     display:flex;
     margin-right: 10px;

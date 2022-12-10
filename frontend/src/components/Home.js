@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAward } from '@fortawesome/free-solid-svg-icons'
 
+import {Link} from 'react-router-dom';
+import * as Mui from '@mui/material';
 import Navbar from './Navbar';
 
 const Button = styled.button`
@@ -19,28 +21,30 @@ const Button = styled.button`
 `
 
 const Nav = styled.nav`
-    background-color: rgba(0,0,0,0.5);
+    background-color: #7390FB;
     background-attachment: fixed;
     background-position: auto, center top;
     display:flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 10px 10%;
+    padding: 20px 10%;
     font-size: 20px;
     top: 0;
-    z-index: 999;
-    height: 50px;
+    z-index: 10;
+    height: 99vh;
     position: relative;
+
 `
 
 
 
 const Menu = styled.ul`
-    padding-top: 50px;
+    margin-left: 100px;
     display: flex;
     color: white;
-    align-items: center;
     text-align: center;
+    text-decoration: none;
+    z-index: 101;
+    position:relative;
 `
 
 const MenuItem = styled.li`
@@ -51,31 +55,26 @@ const MenuItem = styled.li`
     list-style: none;
     margin: 20px;
     padding: 10px;
-    height: 80px;
+    height: 70px;
+    color: white;
+    z-index: 101;
+    position:relative;
 `
 
-const Title = styled.li`
+const Title = styled.div`
+    margin-top: 5px;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 30px;
     font-family: Helvetica Neue;
     list-style:none;
     align-items: flex-start;
     padding-right: 200px;
+    padding-top: 10px;
     height: 80px;
+    position: relative;
+    z-index: 100;
 `
 
-const Header = styled.div`
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/flashwars.jpg) no-repeat center center;
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center top;
-    min-height: 100vh;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    position: relative;
-    z-index: 10;
-`   
 
 const Subtitle = styled.div`
     font-size: 40px;
@@ -91,32 +90,78 @@ const Subtitle = styled.div`
     transform: translate(-50%, -50%)
 `
 const Paragraph = styled.div`
-    background-color: rgba(0,0,0,0.7);
-    font-size: 20px;
-    font-weight: 400;
-    font-family: Helvetica Neue;
-    color: lightblue;
+    font-size: 40px;
+    font-weight: 500;
+    font-family: Arial;
+    color: white;
     width: 500px;
     letter-spacing: 0.8px;
     line-height: 1;
     position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%);
+`
+
+const Hero = styled.div`
+    position: absolute;
+    top: 25vh;
+    transform: translateX(30%);
+    z-index: 80;
+`
+const Header = styled.div`
+    width: 100%;
+    height: 99vh;
+    z-index: 70;
+    position: absolute;
+    background-color: rgb(31,209,216);
+    transform:  skewY(10deg) translateY(-80%);
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+    `
+
+const Logo = styled.div`
+    position:relative;
+    z-index: 20;
+`
+
+const Text = styled.div`
+    position: absolute;
+    right: 10%;
+    top: 25vh;
+    color: #eee;
+    z-index:10;
+`
+
+const Heading = styled.div`
+    font-size: 50px;
+`
+
+const Subtext = styled.div`
+    font-size: 30px;
 `
 
 const Home = () => {
     return (
-     <Header>
-        <Navbar />
-
-        <Subtitle>Gamifying Study Habits
-
-        <Paragraph>flash_wars is a digital platform that turns studying into a game. 
-            compete to win badges and climb up the leaderboard. make memorizing facts more fun.
-        </Paragraph>
-        </Subtitle>
-      
-      
-     </Header>
-       
+     <div>
+        <Nav>
+        <Logo><Link style={{ textDecoration: 'none', color: 'white' }} to="/"><Title>flashwars</Title></Link></Logo>
+        
+    <Menu>
+       <Link style={{ textDecoration: 'none', color: '#E64420' }} to="/login" ><MenuItem>Log In</MenuItem></Link>
+        <Link style={{ textDecoration: 'none', color: '#E64420' }} to="/decks" ><MenuItem>Decks</MenuItem></Link>
+        <Link style={{ textDecoration: 'none', color: '#E64420' }} to="/leaderboard"><MenuItem>Leaderboard  </MenuItem></Link>
+       <Link style={{ textDecoration: 'none', color: '#E64420' }} to="/compete"><MenuItem>Compete  </MenuItem></Link>
+        
+    </Menu>
+</Nav>
+ 
+<Hero><img className="header-img" src="../img/submain.png" /></Hero>
+           <Text><Heading>Make memorizing fun</Heading>
+           <Subtext><p>...through competing with friends</p>
+           <p>...using speech to text translation</p>
+           <p>...get rewards and rank on the leaderboard</p></Subtext></Text>
+            
+        </div>
     )
 }
 
