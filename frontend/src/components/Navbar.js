@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom'
 
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAward } from '@fortawesome/free-solid-svg-icons'
 
+import { verifyuser } from '../api/apiUsers';
 const Button = styled.button`
     background: transparent;
     background-color: #eee;
@@ -75,14 +76,25 @@ const Top = styled.div`
 `
 
 const Navbar = () => {
+    const [user, setUser] = useState()
+    const fetchUser = async () => {
+        const response  = await verifyuser();
+        setUser(response)
+
+    }
+
+    useEffect(() => {
+        fetchUser()
+    }, [])
+
+    let customLink = user ?  (<Link style={{ textDecoration: 'none', color: '#E64420' }} to="/profile"><MenuItem>Profile</MenuItem></Link>) : (<Link style={{ textDecoration: 'none', color: '#E64420' }} to="/login" ><MenuItem>Log In</MenuItem></Link>)
     return (
     <Nav>
         <Top>
         <Link style={{ textDecoration: 'none', color: 'white' }} to="/"><Title>flashwars</Title></Link>
         </Top>
     <Menu>
-       <Link style={{ textDecoration: 'none', color: '#E64420' }} to="/login" ><MenuItem>Log In</MenuItem></Link>
-       {/* <Link style={{ textDecoration: 'none', color: '#E64420' }} to="/profile"><MenuItem>Profile</MenuItem></Link> */}
+      {customLink}
         <Link style={{ textDecoration: 'none', color: '#E64420' }} to="/decks" ><MenuItem>Decks</MenuItem></Link>
         <Link style={{ textDecoration: 'none', color: '#E64420' }} to="/leaderboard"><MenuItem>Leaderboard  </MenuItem></Link>
        <Link style={{ textDecoration: 'none', color: '#E64420' }} to="/compete"><MenuItem>Compete  </MenuItem></Link>
