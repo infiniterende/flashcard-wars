@@ -32,6 +32,7 @@ const theme = createTheme();
 const ButtonContainer = styled.div`
     display:flex;
     justify-content:center;
+    margin-top: 50px;
 `
 const ButtonDiv = styled.button`
     border-radius: 10px;
@@ -143,21 +144,23 @@ const Profile = ({}) => {
            <Container component="main" maxWidth="xl">
              <CssBaseline />
         
-             <Box sx={{marginTop: 2, display:'flex', flexDirection:'row', justifyContent: 'space-around'}}>
-             <Avatar sx={{width: 100, height: 100, bgcolor:'#7390FB', fontSize: '3em'}}>{profile.user.name[0]}</Avatar>
-             <Box sx={{display:'flex', flexDirection:'column'}}>
-                <Typography component='h4'>
+             <Box sx={{marginTop: 5, display:'flex', flexDirection:'column', justifyContent: 'center', alignItems:'center'}}>
+             <Avatar sx={{width: 130, height: 130, bgcolor:'#7390FB', fontSize: '4em'}}>{profile.user.name[0]}</Avatar>
+             <Box sx={{display:'flex', flexDirection:'column', alignItems: 'center'}}>
+                <Typography sx={{ fontWeight: 600, marginTop: 2, display:'flex', justifyContent:'center'}}component='h5' variant='h4'>
                     {profile.user.name}
                 </Typography>
-                <Typography component='p'>
+                <Box sx={{display:'flex', flexDirection: 'row', color: 'gray', justifyContent: 'center', alignItems: 'center'}}>
+                <Typography sx={{marginRight: 1}} variant='p' component='p'>
                     {profile.user.username}
                 </Typography>
-                <Typography component='p'>
-                    {profile.user.rank}
+                <Typography sx={{marginRight: 1}} component='p' variant='p'>
+                     {profile.user.rank}
                 </Typography>
-                <Typography component='p'>
+                <Typography sx={{marginRight: 1}} component='p' variant='p'>
                     {profile.user.points}
                 </Typography>
+                </Box>
              </Box>
              
              </Box>
