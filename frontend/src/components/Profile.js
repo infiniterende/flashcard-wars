@@ -25,25 +25,40 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import Divider from '@mui/material/Divider';
+import Drawer from '@mui/material/Drawer';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+
+const drawerWidth = 300;
 
 const theme = createTheme();
 
 const ButtonContainer = styled.div`
     display:flex;
     justify-content:center;
-    margin-top: 50px;
+    margin-top: 10px;
+    margin-bottom: 60px;
+    
 `
 const ButtonDiv = styled.button`
     border-radius: 10px;
     color: white;
-    background-color: #455964;
+    background-color: #7390FB;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-size: 18px;
-    padding: 50px;
-    width: 250px;
+    padding: 20px;
+    width: 200px;
     height: 50px;
     display:flex;
     justify-content: center;
@@ -71,23 +86,6 @@ const TopContainer = styled.div`
     
 `
 
-const ProfileInfoContainer = styled.div`
-    display:flex;
-    flex-direction: column;
-`
-const ProfileImg = styled.div`
-    font-size: 2em;
-    padding: 20px;
-    border-radius: 50%;
-    border: 2px solid #333;
-    width: 100px;
-    height: 100px;
-    margin: 0 20px;
-`
-const NameBox = styled.div`
-    font-size: 36px;
-    font-weight: 600;
-`
 
 const UserInfo = styled.div`
     font-size: 20px;    
@@ -139,6 +137,7 @@ const Profile = ({}) => {
     return (
         <div>
             <Navbar />
+  
            {profile && 
            <ThemeProvider theme={theme}>
            <Container component="main" maxWidth="xl">
@@ -165,13 +164,7 @@ const Profile = ({}) => {
              
              </Box>
              
-             {/* <ProfileInfoContainer>
-            <NameBox>{profile.user.name}</NameBox> 
-            <UserInfo>{profile.user.username}</UserInfo>
-            
-           <UserInfo>Rank: {profile.user.rank} </UserInfo>
-           <UserInfo>Points:{profile.user.points}</UserInfo> 
-           </ProfileInfoContainer> */}
+           
            <ButtonContainer>
            <ButtonDiv onClick={handleShowModal}>
         Create Deck

@@ -1,7 +1,23 @@
 import React, { useState, useEffect } from "react"
-import { Button, Modal, Form } from "react-bootstrap"
+import { Modal} from "react-bootstrap"
 import { createDeck} from "../api/apiCalls"
 import { verifyuser } from "../api/apiUsers"
+
+import * as Mui from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme();
 
 const AddDeck= ({ show, closeHandler }) => {
   const [deck, setDeck] = useState({})
@@ -36,7 +52,7 @@ const AddDeck= ({ show, closeHandler }) => {
         <Modal.Title> Add Deck</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form.Group>
+        {/* <Form.Group>
           <Form.Label>Name</Form.Label>
           <Form.Control
             className="form-group"
@@ -45,12 +61,54 @@ const AddDeck= ({ show, closeHandler }) => {
             value={deck.name}
             name="name"
           ></Form.Control>
-        </Form.Group>
+        </Form.Group> */}
+          <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="lg">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 4,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+         
+          <Typography component="h1" variant="h5">
+            Add Deck
+          </Typography>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Deck Name"
+              name="name"
+              autoFocus
+              onChange={handleChange}
+            />
+           
+          
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
       </Modal.Body>
-      <Button variant="primary" type="submit" onClick={handleSubmit}>
-        Add Deck
-      </Button>
-      <Button variant="secondary" onClick={closeHandler}>
+      <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3 }}
+              style={{backgroundColor:"#7390FB"}}
+              onClick={handleSubmit}
+            >
+              Add Deck
+            </Button>
+      <Button 
+              variant="contained"
+              
+              style={{backgroundColor:"#455964"}} onClick={closeHandler}>
         Close
       </Button>
     </Modal>
