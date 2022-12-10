@@ -9,6 +9,8 @@ import { getDeck } from '../api/apiCalls';
 import Navbar from './Navbar';
 
 import { Form, Modal, Button } from "react-bootstrap"
+import TextField from '@mui/material/TextField';
+
 import { updateUserPoints } from "../api/apiCalls"
 import { getFlashcard } from "../api/apiCalls"
 import checkSimilarity from "../utils/checkStringSimilarity"
@@ -62,12 +64,13 @@ const ArrowButton = styled.button`
 const ButtonDiv = styled.button`
     border-radius: 10px;
     color: white;
-    background-color: #24a0ed;
-    padding: 10px;
+    background-color: #455964;
+    padding: 20px;
     display:flex;
     margin-right: 10px;
     outline: none;
     border: none;
+    font-weight: 600;
 `
 
 const AnswerContainer = styled.div`
@@ -75,6 +78,7 @@ const AnswerContainer = styled.div`
     flex-direction: row;
     justify-content: center;
     position:relative;
+    margin: 20px;
     
 `
 
@@ -90,6 +94,13 @@ background-color: white;
 border-radius: 20px;
 border: 5px solid rgba(0,0,0,0.6);
 font-size: 20px;
+`
+
+const ButtonGroup = styled.div`
+  display:flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
 `
 
 const Flashcard = ({
@@ -230,13 +241,17 @@ const [showGameWinner, setShowGameWinner] = useState(false)
         {showAnswer && <FlashcardBack>{answer}</FlashcardBack> }
         <ArrowButton onClick={increment}><FontAwesomeIcon icon={faArrowRight} size="lg"/></ArrowButton>
         </FlashcardContainer>
+        
        <AnswerContainer>
+        <TextField sx={{width: '30%'}} multiline minRows={6} value={userAnswer} onChange={handleChange}/>
+      
+        </AnswerContainer>
+        <ButtonGroup>
        <ButtonDiv onClick={() => setShowAnswer(!showAnswer)}> {showAnswer ? "Hide Answer" : "Show Answer" }</ButtonDiv>
         <ButtonDiv onClick={handleSubmit}>Check Answer</ButtonDiv>
         <ButtonDiv onClick={getWinner}>Get Winner</ButtonDiv>
         <ButtonDiv onClick={getGameWinner}>End Game</ButtonDiv>
-        <textarea maxlength="200" type="text" value={userAnswer} onChange={handleChange}></textarea>
-        </AnswerContainer>
+        </ButtonGroup>
         </div>
     )
 }

@@ -10,6 +10,7 @@ import AddFlashcard from './AddFlashcard';
 import { getDeck } from "../api/apiCalls";
 import { verifyuser } from '../api/apiUsers';
 import { Button, Modal } from "react-bootstrap"
+import Divider from '@mui/material/Divider';
 
 const DeckContainer = styled.div`
     display: flex;
@@ -33,24 +34,35 @@ color: white;
 const Title = styled.div`
     text-align:center;
     font-weight: 600;
-    font-size: 40px;
+    font-size: 20px;
     padding: 40px;
 `
 
 const ButtonDiv = styled.button`
     border-radius: 10px;
     color: white;
-    background-color:#7390FB;
-    padding: 10px;
+    background-color: #7390FB;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 18px;
+    padding: 40px;
+    width: 200px;
+    height: 50px;
     display:flex;
+    justify-content: center;
+    align-content: center;
+    align-items:center;
     margin-right: 10px;
     outline: none;
     border: none;
-`
 
+
+`
 const Container = styled.div`
     display:flex;
     justify-content:center;
+    margin: 50px;
 `
 
 const FlashcardList = () => {
@@ -158,10 +170,8 @@ const FlashcardList = () => {
     return (
         <div>
         <Navbar/>
-        <Title>{loading && deck.name}</Title>
-        <Container><ButtonDiv onClick={handleShowModal}>
-        Create Flashcard
-      </ButtonDiv></Container>
+       <Divider><Title>{loading && deck.name}</Title></Divider> 
+       
       {showCreateModal && (
         <AddFlashcard
           show={showCreateModal}
@@ -170,6 +180,12 @@ const FlashcardList = () => {
         />
       )}
      {isDeckLoading && <Flashcard user={user} decrement={decrementCardIndex} increment={incrementCardIndex} {...displayedCard} /> }
+      
+      <Container>
+     <ButtonDiv onClick={handleShowModal}>
+        Create Flashcard
+      </ButtonDiv>
+      </Container>
        </div>
     )
 }
