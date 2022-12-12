@@ -96,7 +96,7 @@ const Navbar = () => {
     <Menu>
       {customLink}
         <Link style={{ textDecoration: 'none', color: '#E64420' }} to="/decks" ><MenuItem>Decks</MenuItem></Link>
-        <Link style={{ textDecoration: 'none', color: '#E64420' }} to="/leaderboard"><MenuItem>Leaderboard  </MenuItem></Link>
+        {/* <Link style={{ textDecoration: 'none', color: '#E64420' }} to="/leaderboard"><MenuItem>Leaderboard  </MenuItem></Link> */}
        <Link style={{ textDecoration: 'none', color: '#E64420' }} to="/compete"><MenuItem>Compete  </MenuItem></Link>
         
     </Menu>

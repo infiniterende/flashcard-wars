@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { verifyuser } from '../api/apiUsers';
 import { getAllDecks } from '../api/apiCalls';
 
-import { Button } from 'react-bootstrap';
 
 import Deck from './Deck';
 import DeckList from './DeckList';
@@ -15,6 +14,7 @@ import Navbar from './Navbar';
 
 import checkSimilarity from "../utils/checkStringSimilarity"
 
+import Button from '@mui/material/Button';
 const ButtonDiv = styled.button`
   background-color: lightblue;
   padding: 20px;
@@ -34,6 +34,10 @@ const DeckContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin: 20px;
+`
+
+const Container = styled.div`
+  text-align: center;
 `
 const Game = () => {
   const ENDPOINT = 'http://localhost:3001'
@@ -111,8 +115,18 @@ const Game = () => {
     return (
       <div>
         <Navbar />
+        <Container>
+        <img src="../../img/compete.jpg" width="50%" />
+        <h4>Compete against your friends!</h4>
+        </Container>
         <ButtonContainer>
-      {!isGame  && <ButtonDiv onClick={playGame}>Play Game</ButtonDiv> }
+        <Button 
+              variant="contained"
+              sx={{p:2}}
+              style={{backgroundColor:"#455964"}} onClick={playGame}>
+      Play Game 
+      </Button>
+      {/* {!isGame  && <ButtonDiv onClick={playGame}>Play Game</ButtonDiv> } */}
       </ButtonContainer>
       <DeckContainer>
       {pickedUser && decks.map(deck => ( <Deck id={deck._id} name={deck.name} />))}

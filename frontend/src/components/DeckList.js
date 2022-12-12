@@ -31,6 +31,10 @@ const Title = styled.div`
     font-size: 40px;
     padding: 40px;
 `
+
+const Container = styled.div`
+    text-align:center;
+`
 const DeckList = () => {
     const [decks, setDecks] = useState([])
 
@@ -46,6 +50,7 @@ const DeckList = () => {
         <div>
         <Navbar/>
         <Title>Decks</Title>
+        <Container><img src="../../img/deck.png" /></Container>
        <DeckContainer>{decks.map(deck =><DeckBox><Deck id={deck._id} name={deck.name} /></DeckBox>)}</DeckContainer>
     
        </div>

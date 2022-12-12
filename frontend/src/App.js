@@ -27,7 +27,7 @@ function App() {
     <Route exact path="/profile" element={<Profile/>} />
     <Route exact path="/login" element={<Signin/>} />
     <Route exact path="/signup" element={<Register/>} />
-    <Route exact path="/leaderboard" element={<Leaderboard/>} />
+    {/* <Route exact path="/leaderboard" element={<Leaderboard/>} /> */}
     <Route exact path="/decks" element={<DeckList/>} />
     <Route exact path="/compete" element={<Game/>} />
     <Route exact path="/decks/:id" element={<FlashcardList/>} />
