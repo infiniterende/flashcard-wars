@@ -49,9 +49,9 @@ const DeckList = () => {
     return (
         <div>
         <Navbar/>
-        <Title>Decks</Title>
-        <Container><img src="../../img/deck.png" /></Container>
-       <DeckContainer>{decks.map(deck =><DeckBox><Deck id={deck._id} name={deck.name} /></DeckBox>)}</DeckContainer>
+        <Title></Title>
+        
+       <DeckContainer>{decks.map(deck =><Deck id={deck._id} name={deck.name} />)}</DeckContainer>
     
        </div>
     )

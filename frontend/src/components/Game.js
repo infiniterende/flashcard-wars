@@ -15,6 +15,8 @@ import Navbar from './Navbar';
 import checkSimilarity from "../utils/checkStringSimilarity"
 
 import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+
 const ButtonDiv = styled.button`
   background-color: lightblue;
   padding: 20px;
@@ -34,11 +36,14 @@ const DeckContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin: 20px;
+  color: #7390FB;
 `
 
-const Container = styled.div`
-  text-align: center;
+const DeckBox = styled.div`
+  display:flex;
+  flex-basis: 33%;
 `
+
 const Game = () => {
   const ENDPOINT = 'http://localhost:3001'
   const [socketConnected, setSocketConnected] = useState(false)
@@ -115,22 +120,26 @@ const Game = () => {
     return (
       <div>
         <Navbar />
-        <Container>
+        <Container sx={{textAlign: 'center'}}>
         <img src="../../img/compete.jpg" width="50%" />
         <h4>Compete against your friends!</h4>
         </Container>
         <ButtonContainer>
-        <Button 
+        {!isGame && <Button 
               variant="contained"
               sx={{p:2}}
               style={{backgroundColor:"#455964"}} onClick={playGame}>
       Play Game 
-      </Button>
+      </Button> }
       {/* {!isGame  && <ButtonDiv onClick={playGame}>Play Game</ButtonDiv> } */}
       </ButtonContainer>
       <DeckContainer>
-      {pickedUser && decks.map(deck => ( <Deck id={deck._id} name={deck.name} />))}
-         
+      {pickedUser && 
+      (<Container sx={{textAlign: 'center'}}>
+        <h5>Pick Deck</h5>
+     <div style={{display:'flex', flex: '50%', flexWrap: 'wrap', alignItems: 'center'}}> {decks.map(deck => ( <DeckBox><Deck id={deck._id} name={deck.name} /></DeckBox>))}
+     </div> 
+      </Container> )} 
          </DeckContainer>
       </div>
     )

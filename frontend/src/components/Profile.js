@@ -189,7 +189,7 @@ const Profile = ({}) => {
       <Divider><Typography  variant="p" component="p">My Decks</Typography></Divider>
            <DeckContainer>
            
-            {profile.user.decks.map(deck => <DeckBox><Deck id={deck._id} name={deck.name}/></DeckBox>)}
+            {profile.user.decks.map(deck => <Deck id={deck._id} name={deck.name}/>)}
            </DeckContainer>
 
       <Divider>My Progress</Divider>     
