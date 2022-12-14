@@ -1,11 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAward } from '@fortawesome/free-solid-svg-icons'
 
 import {Link} from 'react-router-dom';
-import * as Mui from '@mui/material';
-import Navbar from './Navbar';
 
 const Button = styled.button`
     background: transparent;
@@ -149,7 +145,6 @@ const Home = () => {
     <Menu>
        <Link style={{ textDecoration: 'none', color: '#E64420' }} to="/login" ><MenuItem>Log In</MenuItem></Link>
         <Link style={{ textDecoration: 'none', color: '#E64420' }} to="/decks" ><MenuItem>Decks</MenuItem></Link>
-        {/* <Link style={{ textDecoration: 'none', color: '#E64420' }} to="/leaderboard"><MenuItem>Leaderboard  </MenuItem></Link> */}
        <Link style={{ textDecoration: 'none', color: '#E64420' }} to="/compete"><MenuItem>Compete  </MenuItem></Link>
         
     </Menu>

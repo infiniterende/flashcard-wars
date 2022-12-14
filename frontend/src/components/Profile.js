@@ -1,21 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import styled from 'styled-components';
-
-import { Chart as ChartJS } from 'chart.js/auto'
-import { Chart }            from 'react-chartjs-2'
-
-import {Line} from 'react-chartjs-2'
 import {Navigate} from 'react-router-dom'
-// import { Button, Form } from 'react-bootstrap';
+import {Line} from 'react-chartjs-2'
 
 import Navbar from './Navbar'
 import Deck from './Deck'
 import AddDeck from './AddDeck';
 
 import {userProfile, verifyuser} from '../api/apiUsers';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 import * as Mui from '@mui/material';
 import Avatar from '@mui/material/Avatar';
@@ -38,7 +30,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
@@ -150,7 +141,7 @@ const Profile = ({}) => {
   
            {profile && 
            <ThemeProvider theme={theme}>
-           <Container component="main" maxWidth="xl">
+           <Container component="main" maxWidth="lg">
              <CssBaseline />
         
              <Box sx={{marginTop: 8, display:'flex', flexDirection:'column', justifyContent: 'center', alignItems:'center'}}>

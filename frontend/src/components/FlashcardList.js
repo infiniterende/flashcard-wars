@@ -9,7 +9,7 @@ import AddFlashcard from './AddFlashcard';
 
 import { getDeck } from "../api/apiCalls";
 import { verifyuser } from '../api/apiUsers';
-import { Button, Modal } from "react-bootstrap"
+
 import Divider from '@mui/material/Divider';
 
 const DeckContainer = styled.div`

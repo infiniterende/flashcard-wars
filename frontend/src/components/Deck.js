@@ -1,10 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 import { getDeck, getFlashcards } from '../api/apiCalls';
 

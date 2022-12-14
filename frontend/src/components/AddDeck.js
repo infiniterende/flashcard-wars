@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from "react"
 import { Modal} from "react-bootstrap"
-import { createDeck} from "../api/apiCalls"
-import { verifyuser } from "../api/apiUsers"
 
 import * as Mui from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+import { createDeck} from "../api/apiCalls"
+import { verifyuser } from "../api/apiUsers"
 
 const theme = createTheme();
 
@@ -39,7 +36,6 @@ const AddDeck= ({ show, closeHandler }) => {
     e.preventDefault()
     try {
       const response = await createDeck(deck);
-      console.log(response)
       closeHandler()
     } catch (error) {
       console.log(error)
@@ -52,16 +48,6 @@ const AddDeck= ({ show, closeHandler }) => {
         <Modal.Title> Add Deck</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {/* <Form.Group>
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            className="form-group"
-            type="text"
-            onChange={handleChange}
-            value={deck.name}
-            name="name"
-          ></Form.Control>
-        </Form.Group> */}
           <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xl">
         <CssBaseline />

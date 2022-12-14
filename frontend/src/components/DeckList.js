@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 
 import Navbar from './Navbar';
-
 import Deck from './Deck';
 
 import { getAllDecks } from "../api/apiCalls";

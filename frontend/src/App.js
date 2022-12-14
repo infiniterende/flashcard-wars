@@ -1,6 +1,5 @@
 import React, {useState, useRef, useEffect} from 'react';
 import {BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom'
-import { io } from 'socket.io-client';
 
 import Home from './components/Home';
 import Deck from './components/Deck';
@@ -18,8 +17,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 
- 
-  
   return (
     <Router>
     <Routes>

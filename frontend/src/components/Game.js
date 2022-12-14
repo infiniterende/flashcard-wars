@@ -1,21 +1,17 @@
 import React, {useEffect, useState, useRef} from 'react'
-import socket from '../socket';
 import { io } from 'socket.io-client';
 import styled from 'styled-components';
-
-import { verifyuser } from '../api/apiUsers';
-import { getAllDecks } from '../api/apiCalls';
-
 
 import Deck from './Deck';
 import DeckList from './DeckList';
 import FlashcardList from './FlashcardList';
 import Navbar from './Navbar';
 
-import checkSimilarity from "../utils/checkStringSimilarity"
-
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
+
+import { verifyuser } from '../api/apiUsers';
+import { getAllDecks } from '../api/apiCalls';
 
 const ButtonDiv = styled.button`
   background-color: lightblue;
