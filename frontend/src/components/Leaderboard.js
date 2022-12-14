@@ -1,42 +1,46 @@
-import React, {useEffect, useState} from "react";
-import styled from 'styled-components'
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 
 import Navbar from "./Navbar";
 
 import { getLeaderboard } from "../api/apiCalls";
 
 const User = styled.div`
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-    background-color: lightblue;
-    margin: 10px auto;
-    width: 200px;
-    border-radius: 10px;
-    font-weight: 600;
-`
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  background-color: lightblue;
+  margin: 10px auto;
+  width: 200px;
+  border-radius: 10px;
+  font-weight: 600;
+`;
 
 const Leaderboard = () => {
-    const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
 
-    const fetchLeaderboard = async () => {
-        const response = await getLeaderboard();
-        setUsers(response)
-    }
+  const fetchLeaderboard = async () => {
+    const response = await getLeaderboard();
+    setUsers(response);
+  };
 
-    useEffect(() => {
-        fetchLeaderboard()
-    }, [])
+  useEffect(() => {
+    fetchLeaderboard();
+  }, []);
 
-    return (
-        <div>
-            <Navbar />
-            {users.map(user => {
-                return <User> {user.rank}. {user.username} - {user.points} points </User>
-            })}
-        </div>
+  return (
+    <div>
+      <Navbar />
+      {users.map((user) => {
+        return (
+          <User>
+            {" "}
+            {user.rank}. {user.username} - {user.points} points{" "}
+          </User>
+        );
+      })}
+    </div>
+  );
+};
 
-    )
-}
-
-export default Leaderboard
+export default Leaderboard;

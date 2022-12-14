@@ -1,23 +1,24 @@
-import React, { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
-import { Button, Modal, Form, Dropdown } from "react-bootstrap"
-import { createFlashcard } from "../api/apiCalls"
-import { verifyuser } from "../api/apiUsers"
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { Button, Modal, Form, Dropdown } from "react-bootstrap";
+import { createFlashcard } from "../api/apiCalls";
+import { verifyuser } from "../api/apiUsers";
 
 const AddFlashcard = ({ deckId, show, closeHandler }) => {
-  const { id } = useParams()
-  const [flashcard, setFlashcard] = useState({ difficulty: 1 })
-  const [userId, setUserId] = useState()
+  const { id } = useParams();
+  const [flashcard, setFlashcard] = useState({ difficulty: 1 });
+  const [userId, setUserId] = useState();
+
   useEffect(() => {
-    getUser()
-  }, [])
+    getUser();
+  }, []);
 
   const getUser = async () => {
-    const response = await verifyuser()
-    setUserId(response.user.id)
-  }
+    const response = await verifyuser();
+    setUserId(response.user.id);
+  };
   const handleChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     name == "difficulty"
       ? setFlashcard((prevState) => ({
           ...prevState,
@@ -26,24 +27,24 @@ const AddFlashcard = ({ deckId, show, closeHandler }) => {
       : setFlashcard((prevState) => ({
           ...prevState,
           [name]: value,
-        }))
-  }
+        }));
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
       setFlashcard((prevState) => ({
         ...prevState,
         deck: deckId,
         creator: userId,
-      }))
-      const response = await createFlashcard(deckId, flashcard)
-      console.log(response)
-      closeHandler()
+      }));
+      const response = await createFlashcard(deckId, flashcard);
+      console.log(response);
+      closeHandler();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     <Modal show={show} onHide={closeHandler}>
@@ -94,7 +95,7 @@ const AddFlashcard = ({ deckId, show, closeHandler }) => {
         Close
       </Button>
     </Modal>
-  )
-}
+  );
+};
 
-export default AddFlashcard
+export default AddFlashcard;
