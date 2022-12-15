@@ -1,36 +1,39 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { Navigate } from "react-router-dom";
-import { Line } from "react-chartjs-2";
+import React, { useEffect, useState } from "react"
+import styled from "styled-components"
+import { Navigate } from "react-router-dom"
 
-import Navbar from "./Navbar";
-import Deck from "./Deck";
-import AddDeck from "./AddDeck";
+import { Chart as ChartJS } from "chart.js/auto"
+import { Chart } from "react-chartjs-2"
+import { Line } from "react-chartjs-2"
 
-import { userProfile, verifyuser } from "../api/apiUsers";
+import Navbar from "./Navbar"
+import Deck from "./Deck"
+import AddDeck from "./AddDeck"
 
-import * as Mui from "@mui/material";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { userProfile, verifyuser } from "../api/apiUsers"
+
+import * as Mui from "@mui/material"
+import Avatar from "@mui/material/Avatar"
+import Button from "@mui/material/Button"
+import CssBaseline from "@mui/material/CssBaseline"
+import TextField from "@mui/material/TextField"
+import FormControlLabel from "@mui/material/FormControlLabel"
+import Checkbox from "@mui/material/Checkbox"
+import Link from "@mui/material/Link"
+import Grid from "@mui/material/Grid"
+import Box from "@mui/material/Box"
+import Typography from "@mui/material/Typography"
+import Container from "@mui/material/Container"
+import Divider from "@mui/material/Divider"
+import Drawer from "@mui/material/Drawer"
+import AppBar from "@mui/material/AppBar"
+import Toolbar from "@mui/material/Toolbar"
+import List from "@mui/material/List"
+import ListItem from "@mui/material/ListItem"
+import ListItemButton from "@mui/material/ListItemButton"
+import ListItemIcon from "@mui/material/ListItemIcon"
+import ListItemText from "@mui/material/ListItemText"
+import { createTheme, ThemeProvider } from "@mui/material/styles"
 
 const data = {
   labels: ["Aug", "Sept", "Oct", "Nov"],
@@ -44,17 +47,17 @@ const data = {
       borderColor: "rgba(75,192,192,1)",
     },
   ],
-};
-const drawerWidth = 300;
+}
+const drawerWidth = 300
 
-const theme = createTheme();
+const theme = createTheme()
 
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 10px;
   margin-bottom: 70px;
-`;
+`
 const ButtonDiv = styled.button`
   border-radius: 10px;
   color: white;
@@ -73,7 +76,7 @@ const ButtonDiv = styled.button`
   margin-right: 10px;
   outline: none;
   border: none;
-`;
+`
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -81,7 +84,7 @@ const ProfileContainer = styled.div`
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
   position: relative;
-`;
+`
 
 const TopContainer = styled.div`
   display: flex;
@@ -89,16 +92,17 @@ const TopContainer = styled.div`
   justify-content: center;
   width: 100%;
   padding: 40px;
-`;
+`
 
 const UserInfo = styled.div`
   font-size: 20px;
-`;
+`
 const DeckContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-`;
+  margin-bottom: 50px;
+`
 const DeckBox = styled.div`
   flex-basis: 25%;
   width: 200px;
@@ -111,29 +115,29 @@ const DeckBox = styled.div`
   align-items: center;
   margin: 20px 20px;
   font-size: 20px;
-`;
+`
 
 const Profile = ({}) => {
-  const [profile, setProfile] = useState();
-  const [id, setId] = useState();
-  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [profile, setProfile] = useState()
+  const [id, setId] = useState()
+  const [showCreateModal, setShowCreateModal] = useState(false)
 
   useEffect(() => {
-    fetchUserProfile();
-  }, []);
+    fetchUserProfile()
+  }, [])
 
   const fetchUserProfile = async () => {
     try {
-      const response = await userProfile();
-      console.log("r", response);
-      setProfile(response);
+      const response = await userProfile()
+      console.log("r", response)
+      setProfile(response)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
-  const handleCloseModal = () => setShowCreateModal(false);
-  const handleShowModal = () => setShowCreateModal(true);
+  const handleCloseModal = () => setShowCreateModal(false)
+  const handleShowModal = () => setShowCreateModal(true)
 
   return (
     <div>
@@ -214,9 +218,7 @@ const Profile = ({}) => {
               )}
             </ButtonContainer>
             <Divider>
-              <Typography variant="p" component="p">
-                My Decks
-              </Typography>
+              <h3>My Decks</h3>
             </Divider>
             <DeckContainer>
               {profile.user.decks.map((deck) => (
@@ -224,7 +226,9 @@ const Profile = ({}) => {
               ))}
             </DeckContainer>
 
-            <Divider>My Progress</Divider>
+            <Divider>
+              <h3>My Progress</h3>
+            </Divider>
             <Box sx={{ width: "50%" }}>
               <Line datasetIdKey="id" data={data} />
             </Box>
@@ -232,7 +236,7 @@ const Profile = ({}) => {
         </ThemeProvider>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile
