@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
+import React from "react"
+import styled from "styled-components"
 
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 
 const Button = styled.button`
   background: transparent;
@@ -13,7 +13,7 @@ const Button = styled.button`
   position: absolute;
   text-transform: uppercase;
   letter-spacing: 1px;
-`;
+`
 
 const Nav = styled.nav`
   background-color: #7390fb;
@@ -27,7 +27,7 @@ const Nav = styled.nav`
   z-index: 10;
   height: 99vh;
   position: relative;
-`;
+`
 
 const Menu = styled.ul`
   margin-left: 100px;
@@ -37,7 +37,7 @@ const Menu = styled.ul`
   text-decoration: none;
   z-index: 101;
   position: relative;
-`;
+`
 
 const MenuItem = styled.li`
   font-family: Helvetica Neue;
@@ -51,7 +51,7 @@ const MenuItem = styled.li`
   color: white;
   z-index: 101;
   position: relative;
-`;
+`
 
 const Title = styled.div`
   margin-top: 5px;
@@ -65,7 +65,7 @@ const Title = styled.div`
   height: 80px;
   position: relative;
   z-index: 100;
-`;
+`
 
 const Subtitle = styled.div`
   font-size: 40px;
@@ -79,7 +79,7 @@ const Subtitle = styled.div`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-`;
+`
 const Paragraph = styled.div`
   font-size: 40px;
   font-weight: 500;
@@ -92,14 +92,14 @@ const Paragraph = styled.div`
   top: 30%;
   left: 50%;
   transform: translate(-50%);
-`;
+`
 
 const Hero = styled.div`
   position: absolute;
   top: 25vh;
   transform: translateX(30%);
   z-index: 80;
-`;
+`
 const Header = styled.div`
   width: 100%;
   height: 99vh;
@@ -108,12 +108,12 @@ const Header = styled.div`
   background-color: rgb(31, 209, 216);
   transform: skewY(10deg) translateY(-80%);
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
-`;
+`
 
 const Logo = styled.div`
   position: relative;
   z-index: 20;
-`;
+`
 
 const Text = styled.div`
   position: absolute;
@@ -121,15 +121,15 @@ const Text = styled.div`
   top: 25vh;
   color: #eee;
   z-index: 10;
-`;
+`
 
 const Heading = styled.div`
   font-size: 50px;
-`;
+`
 
 const Subtext = styled.div`
   font-size: 30px;
-`;
+`
 
 const Home = () => {
   return (
@@ -156,6 +156,12 @@ const Home = () => {
           </Link>
           <Link
             style={{ textDecoration: "none", color: "#E64420" }}
+            to="/leaderboard"
+          >
+            <MenuItem>Leaderboard</MenuItem>
+          </Link>
+          <Link
+            style={{ textDecoration: "none", color: "#E64420" }}
             to="/compete"
           >
             <MenuItem>Compete </MenuItem>
@@ -175,7 +181,7 @@ const Home = () => {
         </Subtext>
       </Text>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

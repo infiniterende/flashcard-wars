@@ -1,21 +1,21 @@
-import React, { useEffect, useState, useRef } from "react";
-import styled from "styled-components";
-import { io } from "socket.io-client";
+import React, { useEffect, useState, useRef } from "react"
+import styled from "styled-components"
+import { io } from "socket.io-client"
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { getDeck } from "../api/apiCalls";
-import Navbar from "./Navbar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons"
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons"
+import { getDeck } from "../api/apiCalls"
+import Navbar from "./Navbar"
 
-import { Form, Modal, Button } from "react-bootstrap";
-import TextField from "@mui/material/TextField";
+import { Form, Modal, Button } from "react-bootstrap"
+import TextField from "@mui/material/TextField"
 
-import { updateUserPoints } from "../api/apiCalls";
-import { getFlashcard } from "../api/apiCalls";
-import checkSimilarity from "../utils/checkStringSimilarity";
+import { updateUserPoints } from "../api/apiCalls"
+import { getFlashcard } from "../api/apiCalls"
+import checkSimilarity from "../utils/checkStringSimilarity"
 
-import { verifyuser } from "../api/apiUsers";
+import { verifyuser } from "../api/apiUsers"
 const FlashcardDiv = styled.div`
   display: flex;
   margin: 10% auto;
@@ -29,7 +29,7 @@ const FlashcardDiv = styled.div`
   border: 5px solid rgba(0, 0, 0, 0.6);
   font-size: 20px;
   position: relative;
-`;
+`
 const Answer = styled.div`
   padding: 100px;
   width: 200px;
@@ -39,7 +39,7 @@ const Answer = styled.div`
   left: 50%;
   transform: translateX(-50%);
   position: absolute;
-`;
+`
 
 const FlashcardContainer = styled.div`
   display: flex;
@@ -49,7 +49,7 @@ const FlashcardContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   perspective: 1000px;
-`;
+`
 const ArrowButton = styled.button`
   border-radius: 50%;
   border: 1px solid black;
@@ -59,7 +59,7 @@ const ArrowButton = styled.button`
   background-color: rgba(0, 0, 0, 0.8);
   color: white;
   margin: 10px;
-`;
+`
 
 const ButtonDiv = styled.button`
   border-radius: 10px;
@@ -71,7 +71,7 @@ const ButtonDiv = styled.button`
   outline: none;
   border: none;
   font-weight: 600;
-`;
+`
 
 const AnswerContainer = styled.div`
   display: flex;
@@ -79,7 +79,7 @@ const AnswerContainer = styled.div`
   justify-content: center;
   position: relative;
   margin: 20px;
-`;
+`
 
 const FlashcardBack = styled.div`
   display: flex;
@@ -93,112 +93,120 @@ const FlashcardBack = styled.div`
   border-radius: 20px;
   border: 5px solid rgba(0, 0, 0, 0.6);
   font-size: 20px;
-`;
+`
 
 const ButtonGroup = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
-`;
+`
 
 const Flashcard = ({ _id, user, question, answer, increment, decrement }) => {
-  const [isAnswered, setIsAnswered] = useState(false);
-  const [userAnswer, setUserAnswer] = useState();
-  const [accuracy, setAccuracy] = useState();
-  const [showAnswerModal, setShowAnswerModal] = useState(false);
-  const [showAnswer, setShowAnswer] = useState(false);
-  const [winner, setWinner] = useState([]);
-  const [showWinnerModal, setShowWinnerModal] = useState(false);
-  const [gameWinner, setGameWinner] = useState([]);
-  const [showGameWinner, setShowGameWinner] = useState(false);
-  const socket = useRef();
+  const [isAnswered, setIsAnswered] = useState(false)
+  const [userAnswer, setUserAnswer] = useState()
+  const [accuracy, setAccuracy] = useState()
+  const [showAnswerModal, setShowAnswerModal] = useState(false)
+  const [showAnswer, setShowAnswer] = useState(false)
+  const [winner, setWinner] = useState([])
+  const [showWinnerModal, setShowWinnerModal] = useState(false)
+  const [gameWinner, setGameWinner] = useState([])
+  const [showGameWinner, setShowGameWinner] = useState(false)
+  const [isGame, setIsGame] = useState(false)
+
+  const socket = useRef()
 
   const setupSocket = () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token")
     if (token) {
       socket.current = io("http://localhost:3001", {
         query: {
           token: localStorage.getItem("token"),
         },
-      });
+      })
 
       socket.current.on("connect", () => {
-        console.log("connect");
-      });
-      console.log(socket.current);
-      console.log("flashcard");
+        console.log("connect")
+        setIsGame(true)
+      })
+      console.log(socket.current)
+      console.log("flashcard")
     }
-  };
+  }
 
   useEffect(() => {
-    setupSocket();
-  }, []);
+    setupSocket()
+  }, [])
 
   const handleChange = (e) => {
-    const { value } = e.target;
-    setUserAnswer(value);
-  };
+    const { value } = e.target
+    setUserAnswer(value)
+  }
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
-      const accuracy = checkSimilarity(answer, userAnswer).toFixed(0);
-      setAccuracy(accuracy);
-      setIsAnswered(true);
-      setShowAnswerModal(true);
-      showScore(accuracy);
+      const accuracy = checkSimilarity(answer, userAnswer).toFixed(0)
+      setAccuracy(accuracy)
+      setIsAnswered(true)
+      setShowAnswerModal(true)
+      showScore(accuracy)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   const closeHandler = () => {
-    setShowAnswerModal(!showAnswerModal);
-  };
+    setShowAnswerModal(!showAnswerModal)
+  }
 
   const closeGame = () => {
-    setShowGameWinner(false);
-  };
+    setShowGameWinner(false)
+  }
 
   const getWinner = () => {
-    let cardScore = { card: _id, score: accuracy, user: user.user };
-    socket.current.emit("get score", cardScore);
-    console.log("cardscore", cardScore);
-    console.log("get score");
-    console.log("socket", socket.current);
+    let cardScore = { card: _id, score: accuracy, user: user.user }
+    socket.current.emit("get score", cardScore)
+    console.log("cardscore", cardScore)
+    console.log("get score")
+    console.log("socket", socket.current)
     socket.current.on("get winner", (cardWinner) => {
-      setWinner({ ...cardWinner });
+      setWinner({ ...cardWinner })
       if (cardWinner) {
-        console.log("true");
-        setShowWinnerModal(true);
+        console.log("true")
+        setShowWinnerModal(true)
       }
-    });
-  };
+    })
+  }
 
   const getGameWinner = () => {
-    console.log("game winer");
+    console.log("game winer")
     socket.current.on("game winner", (gameWinner) => {
-      console.log("socket game end");
-      setGameWinner([...gameWinner]);
-      setShowGameWinner(true);
-    });
-  };
+      console.log("socket game end")
+      setGameWinner([...gameWinner])
+      setShowGameWinner(true)
+    })
+  }
   const updatePoints = async () => {
-    closeHandler();
-  };
+    closeHandler()
+  }
 
   const closeWinnerModal = () => {
-    setShowWinnerModal(false);
-  };
+    setShowWinnerModal(false)
+  }
+
+  const closeResultModal = () => {
+    setShowGameWinner(false)
+    setIsGame(false)
+  }
 
   const showScore = (accuracy) => ({
     if(isAnswered) {
-      <Modal show={showAnswerModal} onHide={closeHandler}>
+      ;<Modal show={showAnswerModal} onHide={closeHandler}>
         <Modal.Body>Score: {accuracy}%</Modal.Body>
         <Button>Continue</Button>
-      </Modal>;
+      </Modal>
     },
-  });
+  })
 
   return (
     <div>
@@ -211,7 +219,7 @@ const Flashcard = ({ _id, user, question, answer, increment, decrement }) => {
           <Modal.Body> {winner.username} wins!</Modal.Body>
           <Button onClick={closeWinnerModal}>Continue</Button>
         </Modal>
-        <Modal show={showGameWinner} onHide={showGameWinner}>
+        <Modal show={showGameWinner} onHide={closeResultModal}>
           <Modal.Body>
             {" "}
             {gameWinner[1]} wins with {gameWinner[0]} points!
@@ -243,11 +251,11 @@ const Flashcard = ({ _id, user, question, answer, increment, decrement }) => {
           {showAnswer ? "Hide Answer" : "Show Answer"}
         </ButtonDiv>
         <ButtonDiv onClick={handleSubmit}>Check Answer</ButtonDiv>
-        <ButtonDiv onClick={getWinner}>Get Winner</ButtonDiv>
-        <ButtonDiv onClick={getGameWinner}>End Game</ButtonDiv>
+        {isGame && <ButtonDiv onClick={getWinner}>Get Winner</ButtonDiv>}
+        {isGame && <ButtonDiv onClick={getGameWinner}>End Game</ButtonDiv>}
       </ButtonGroup>
     </div>
-  );
-};
+  )
+}
 
-export default Flashcard;
+export default Flashcard

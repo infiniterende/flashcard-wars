@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import React, { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
+import styled from "styled-components"
+import PropTypes from "prop-types"
 
-import { verifyuser } from "../api/apiUsers";
+import { verifyuser } from "../api/apiUsers"
 
 const Button = styled.button`
   background: transparent;
@@ -14,7 +15,7 @@ const Button = styled.button`
   position: absolute;
   text-transform: uppercase;
   letter-spacing: 1px;
-`;
+`
 
 const Nav = styled.nav`
   background-attachment: fixed;
@@ -29,8 +30,22 @@ const Nav = styled.nav`
   height: 70px;
   position: relative;
   background-color: #7390fb;
-`;
+`
 
+const NavAlternate = styled.nav`
+  background-attachment: fixed;
+  background-position: auto, center top;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 10%;
+  font-size: 20px;
+  top: 0;
+  z-index: 1;
+  height: 70px;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.7);
+`
 const Menu = styled.ul`
   padding-top: 50px;
   display: flex;
@@ -39,7 +54,7 @@ const Menu = styled.ul`
   text-align: center;
   text-decoration: none;
   margin-left: 150px;
-`;
+`
 
 const MenuItem = styled.li`
   font-family: Helvetica Neue;
@@ -51,7 +66,7 @@ const MenuItem = styled.li`
   padding: 10px;
   height: 70px;
   color: white;
-`;
+`
 
 const Title = styled.div`
   margin-left: 20px;
@@ -63,20 +78,20 @@ const Title = styled.div`
   align-items: flex-start;
   padding-right: 200px;
   height: 80px;
-`;
+`
 
-const Top = styled.div``;
+const Top = styled.div``
 
-const Navbar = () => {
-  const [user, setUser] = useState();
+const Navbar = ({ alternate }) => {
+  const [user, setUser] = useState()
   const fetchUser = async () => {
-    const response = await verifyuser();
-    setUser(response);
-  };
+    const response = await verifyuser()
+    setUser(response)
+  }
 
   useEffect(() => {
-    fetchUser();
-  }, []);
+    fetchUser()
+  }, [])
 
   let customLink = user ? (
     <Link style={{ textDecoration: "none", color: "#E64420" }} to="/profile">
@@ -86,8 +101,35 @@ const Navbar = () => {
     <Link style={{ textDecoration: "none", color: "#E64420" }} to="/login">
       <MenuItem>Log In</MenuItem>
     </Link>
-  );
-  return (
+  )
+
+  let alternateNav = alternate ? (
+    <NavAlternate>
+      <Top>
+        <Link style={{ textDecoration: "none", color: "white" }} to="/">
+          <Title>flashwars</Title>
+        </Link>
+      </Top>
+      <Menu>
+        {customLink}
+        <Link style={{ textDecoration: "none", color: "#E64420" }} to="/decks">
+          <MenuItem>Decks</MenuItem>
+        </Link>
+        <Link
+          style={{ textDecoration: "none", color: "#E64420" }}
+          to="/leaderboard"
+        >
+          <MenuItem>Leaderboard </MenuItem>
+        </Link>
+        <Link
+          style={{ textDecoration: "none", color: "#E64420" }}
+          to="/compete"
+        >
+          <MenuItem>Compete </MenuItem>
+        </Link>
+      </Menu>
+    </NavAlternate>
+  ) : (
     <Nav>
       <Top>
         <Link style={{ textDecoration: "none", color: "white" }} to="/">
@@ -99,7 +141,12 @@ const Navbar = () => {
         <Link style={{ textDecoration: "none", color: "#E64420" }} to="/decks">
           <MenuItem>Decks</MenuItem>
         </Link>
-        {/* <Link style={{ textDecoration: 'none', color: '#E64420' }} to="/leaderboard"><MenuItem>Leaderboard  </MenuItem></Link> */}
+        <Link
+          style={{ textDecoration: "none", color: "#E64420" }}
+          to="/leaderboard"
+        >
+          <MenuItem>Leaderboard </MenuItem>
+        </Link>
         <Link
           style={{ textDecoration: "none", color: "#E64420" }}
           to="/compete"
@@ -108,7 +155,12 @@ const Navbar = () => {
         </Link>
       </Menu>
     </Nav>
-  );
-};
+  )
+  return alternateNav
+}
 
-export default Navbar;
+export default Navbar
+
+Navbar.propTypes = {
+  alternate: PropTypes.bool,
+}
