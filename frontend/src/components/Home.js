@@ -177,7 +177,7 @@ const Home = () => {
         <Subtext>
           <p>...through competing with friends</p>
           <p>...using speech to text translation</p>
-          <p>...winning rewards and ranking on leaderboard</p>
+          <p>...and win rewards to rank on leaderboard</p>
         </Subtext>
       </Text>
     </div>
