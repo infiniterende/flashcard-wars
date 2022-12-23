@@ -3,6 +3,7 @@ import styled from "styled-components"
 
 import Navbar from "./Navbar"
 
+import Button from "@mui/material/Button"
 import Divider from "@mui/material/Divider"
 import { Typography } from "@mui/material"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -52,13 +53,16 @@ const Leaderboard = () => {
 
         {users.map((user) => {
           return (
-            <User>
-              {" "}
+            <Button
+              variant="contained"
+              sx={{ p: 1, m: 1, width: "200px" }}
+              style={{ backgroundColor: "#455964" }}
+            >
               <Typography sx={{ mb: 1, mr: 1 }}>
-                <FontAwesomeIcon icon={faAward} size="lg" />
+                {user.rank} <FontAwesomeIcon icon={faAward} size="lg" />
               </Typography>
               {user.username} - {user.points}
-            </User>
+            </Button>
           )
         })}
       </Container>
