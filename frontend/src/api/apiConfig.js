@@ -1,37 +1,37 @@
-import axios from "axios";
+import axios from "axios"
 
 const getToken = () => {
   return new Promise((resolve) => {
-    resolve(`Bearer ${localStorage.getItem("token") || null}`);
-  });
-};
+    resolve(`Bearer ${localStorage.getItem("token") || null}`)
+  })
+}
 
-let apiUrl;
+let apiUrl
 
 const apiUrls = {
-//   production: "https://co-vent.herokuapp.com/api",
+  production: "https://flashwars.herokuapp.com/api",
   development: "http://localhost:3000/api",
-};
+}
 
 if (window.location.hostname === "localhost") {
-  apiUrl = apiUrls.development;
+  apiUrl = apiUrls.development
 } else {
-  apiUrl = apiUrls.production;
+  apiUrl = apiUrls.production
 }
 
 const api = axios.create({
   baseURL: apiUrl,
-});
+})
 
 api.interceptors.request.use(
   async function (options) {
-    options.headers["Authorization"] = await getToken();
-    return options;
+    options.headers["Authorization"] = await getToken()
+    return options
   },
   function (error) {
-    console.log("Request error: ", error);
-    return Promise.reject(error);
+    console.log("Request error: ", error)
+    return Promise.reject(error)
   }
-);
+)
 
-export default api;
+export default api
